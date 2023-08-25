@@ -4,8 +4,8 @@ function HelloComponent() {
   const [greeting, setGreeting] = useState('');
 
   useEffect(() => {
-    // fetch('http://localhost:3000/api/hello')
-    fetch('https://my-rails-api.herokuapp.com/api/hello')
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+    fetch(`${apiUrl}/api/hello`)
       .then(response => response.json())
       .then(data => {
         setGreeting(data.hi);
