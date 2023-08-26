@@ -27,9 +27,7 @@ export default function Navbar() {
               </button>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary mr-2">
-            Log In
-          </button>
+          <Link to="/login" className="btn btn-primary ml-2">Log In</Link>
           <Link to="/signup" className="btn btn-primary ml-2">Sign Up</Link>
         </form>
       </nav>

@@ -1,26 +1,11 @@
-// import React from 'react';
-// import HelloComponent from './HelloComponent';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <HelloComponent />
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import Leftsidebar from "./components/Leftsidebar";
 import Maincontent from "./components/Maincontent";
-import Navbar from "./components/Navbar";
 import Rightsidebar from "./components/Rightsidebar";
-import "./styles.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SignUp from "./components/SignUp";
-
+import Login from "./components/Login";
 
 export default function App() {
   return (
@@ -28,6 +13,7 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={
           <>
             <div className="container-fluid gedf-wrapper">
