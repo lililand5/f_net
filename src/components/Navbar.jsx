@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 
 export default function Navbar() {
   return (
@@ -28,9 +30,7 @@ export default function Navbar() {
           <button type="submit" className="btn btn-primary mr-2">
             Log In
           </button>
-          <button type="submit" className="btn btn-primary">
-            Sign Up
-          </button>
+          <Link to="/signup" className="btn btn-primary ml-2">Sign Up</Link>
         </form>
       </nav>
     </>
