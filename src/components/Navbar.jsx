@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 export default function Navbar() {
   return (
     <>
@@ -26,7 +25,7 @@ export default function Navbar() {
             </div>
           </div>
           <Link to="/subscriptions" className="btn btn-primary ml-2">Subscriptions</Link>
-          <Link to="/followers" className="btn btn-primary">View Followers</Link>
+          <Link to="/followers" className="btn btn-primary ml-2">Followers</Link>
           <Link to="/login" className="btn btn-primary ml-2">Log In</Link>
           <Link to="/signup" className="btn btn-primary ml-2">Sign Up</Link>
         </form>
