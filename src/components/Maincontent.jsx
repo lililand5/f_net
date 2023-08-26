@@ -1,5 +1,7 @@
 import React from "react";
 import Feed from "./Feed";
+import { Link } from "react-router-dom";
+
 
 export default function Maincontent() {
   return (

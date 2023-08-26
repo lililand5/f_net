@@ -6,9 +6,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="navbar navbar-light bg-white">
-        <a href="#" className="navbar-brand">
-          My network
-        </a>
+        <a href="/" className="navbar-brand">My network</a>
         <form className="form-inline">
           <div className="input-group mr-2">
             <input
@@ -27,6 +25,8 @@ export default function Navbar() {
               </button>
             </div>
           </div>
+          <Link to="/subscriptions" className="btn btn-primary ml-2">Subscriptions</Link>
+          <Link to="/followers" className="btn btn-primary">View Followers</Link>
           <Link to="/login" className="btn btn-primary ml-2">Log In</Link>
           <Link to="/signup" className="btn btn-primary ml-2">Sign Up</Link>
         </form>
