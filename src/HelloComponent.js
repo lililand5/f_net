@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import config from '../config';
 
 function HelloComponent() {
   const [greeting, setGreeting] = useState('');
 
   useEffect(() => {
-    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000';
-    fetch(`${apiUrl}/api/hello`)
+    fetch(`${config.API_URL}/api/hello`)
       .then(response => response.json())
       .then(data => {
         setGreeting(data.hi);
