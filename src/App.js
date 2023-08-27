@@ -8,7 +8,6 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Subscriptions from "./components/Subscriptions";
 import Followers from "./components/Followers";
-import HelloComponent from './HelloComponent';
 
 function App() {
   return (
@@ -29,7 +28,6 @@ function MainLayout() {
   return (
     <div className="container-fluid gedf-wrapper">
       <div className="row">
-      <HelloComponent />
         <Leftsidebar />
         <Maincontent />
         <Rightsidebar />
