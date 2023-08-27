@@ -1,12 +1,14 @@
 import React from "react";
 import Feed from "./Feed";
 import { Link } from "react-router-dom";
+import HelloComponent from './HelloComponent';
 
 
 export default function Maincontent() {
   return (
     <>
       <div className="col-md-6 gedf-main">
+      <HelloComponent />
         <div className="card gedf-card">
           <div className="card-header">
             <ul
