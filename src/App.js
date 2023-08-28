@@ -1,24 +1,33 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Maincontent from "./components/Maincontent";
 import Leftsidebar from "./components/Leftsidebar";
 import Rightsidebar from "./components/Rightsidebar";
-import SignUp from "./components/SignUp";
-import Login from "./components/Login";
 import Subscriptions from "./components/Subscriptions";
 import Followers from "./components/Followers";
 
 function App() {
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+
+    if (!authToken) {
+      window.location.href = "http://localhost:3000/users/sign_in";
+    }
+  }, []);
+
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<MainLayout />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/subscriptions" element={<Subscriptions />} />
-        <Route path="/followers" element={<Followers />} />
+      <Route path="/" element={<MainLayout />} />
+      <Route path="/subscriptions" element={<Subscriptions />} />
+      <Route path="/followers" element={<Followers />} />
       </Routes>
     </Router>
   );
@@ -37,16 +46,3 @@ function MainLayout() {
 }
 
 export default App;
-
-// import React from 'react';
-// import HelloComponent from './HelloComponent';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <HelloComponent />
-//     </div>
-//   );
-// }
-
-// export default App;

@@ -30,6 +30,7 @@ export default function Navbar() {
     .then(response => {
       if (response.status === 200) {
         setIsAuthenticated(false);
+        localStorage.removeItem('authToken');  // Удаляем токен из localStorage
       }
     })
     .catch(error => {
@@ -59,19 +60,6 @@ export default function Navbar() {
               </button>
             </div>
           </div>
-          <Link to="/subscriptions" className="btn btn-primary ml-2">Subscriptions</Link>
-          <Link to="/followers" className="btn btn-primary ml-2">Followers</Link>
-          {isAuthenticated ? (
-            <>
-              <a href={`${process.env.REACT_APP_API_URL}/users/edit`} className="btn btn-danger ml-2">Edit Profile</a>
-              <button onClick={handleSignOut} className="btn btn-danger ml-2">Sign Out</button>
-            </>
-          ) : (
-            <>
-              <a href={`${process.env.REACT_APP_API_URL}/users/sign_in`} className="btn btn-primary ml-2">Log In</a>
-              <a href={`${process.env.REACT_APP_API_URL}/users/sign_up`} className="btn btn-primary ml-2">Sign Up</a>
-            </>
-          )}
         </form>
       </nav>
     </>
