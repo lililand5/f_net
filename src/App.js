@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Maincontent from "./components/Maincontent";
@@ -12,26 +13,35 @@ import Rightsidebar from "./components/Rightsidebar";
 import Subscriptions from "./components/Subscriptions";
 import Followers from "./components/Followers";
 
-function App() {
+function AppContent() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
+    const authTokenFromLocalStorage = localStorage.getItem("authToken");
 
-    // if (!authToken) {
-    //   const apiUrl = process.env.REACT_APP_API_URL;
-    //   window.location.href = `${apiUrl}/users/sign_in`;
+    if (!authTokenFromLocalStorage) {
+      const authTokenFromUrl = new URLSearchParams(location.search).get("token");
 
-    // }
-  }, []);
+      if (authTokenFromUrl) {
+        localStorage.setItem("authToken", authTokenFromUrl);
+        navigate("/", { replace: true }); // перенаправить на главную страницу
+      } else {
+        const apiUrl = process.env.REACT_APP_API_URL;
+        window.location.href = `${apiUrl}/users/sign_in`;
+      }
+    }
+  }, [navigate, location.search]);
 
   return (
-    <Router>
+    <>
       <Navbar />
       <Routes>
-      <Route path="/" element={<MainLayout />} />
-      <Route path="/subscriptions" element={<Subscriptions />} />
-      <Route path="/followers" element={<Followers />} />
+        <Route path="/" element={<MainLayout />} />
+        <Route path="/subscriptions" element={<Subscriptions />} />
+        <Route path="/followers" element={<Followers />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 
@@ -44,6 +54,14 @@ function MainLayout() {
         <Rightsidebar />
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 
