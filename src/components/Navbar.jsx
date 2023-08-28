@@ -24,7 +24,7 @@ export default function Navbar() {
     <>
       <nav className="navbar navbar-light bg-white">
       <Link to="/" className="navbar-brand logo-link">My Network</Link>
-        <form className="form-inline">
+        {/* <form className="form-inline">
           <div className="input-group mr-2">
             <input
               type="text"
@@ -42,7 +42,7 @@ export default function Navbar() {
               </button>
             </div>
           </div>
-        </form>
+        </form> */}
       </nav>
     </>
   );

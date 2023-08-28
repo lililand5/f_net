@@ -4,4 +4,7 @@ WORKDIR /f_net
 
 COPY . .
 
+RUN npm install
+
+
 CMD ["npm", "start"]

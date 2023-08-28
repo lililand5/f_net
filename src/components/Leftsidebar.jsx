@@ -79,7 +79,8 @@ export default function Leftsidebar() {
     })
     .then(() => {
       localStorage.removeItem('authToken');
-      window.location.href = 'http://localhost:3000/users/sign_in';
+      const apiUrl = process.env.REACT_APP_API_URL;
+      window.location.href = `${apiUrl}/users/sign_in`;
     })
     .catch(error => {
       console.error('Ошибка при выходе из системы:', error);
