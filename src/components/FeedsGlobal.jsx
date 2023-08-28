@@ -23,7 +23,6 @@ export default function FeedsGlobal() {
       'Authorization': `Bearer ${authToken}`
     };
 
-    // Fetch global posts
     fetch(`${process.env.REACT_APP_API_URL}/api/posts/global_posts`, {
       method: 'GET',
       headers: headers,
@@ -79,7 +78,7 @@ export default function FeedsGlobal() {
                   <div className="h5 m-0">{post.user.email}</div>
                   {post.user.email !== localStorage.getItem('userEmail') && !subscribedUsers.includes(post.user.id) && (
                     <div className="ml-2">
-                      <button onClick={() => handleSubscribe(post.user.id)} className="btn btn-primary btn-sm">Subscribe</button>
+                      <button onClick={() => handleSubscribe(post.user.id)} className="btn btn-primary btn-sm">Follow</button>
                     </div>
                   )}
                 </div>

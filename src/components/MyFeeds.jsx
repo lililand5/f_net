@@ -49,7 +49,6 @@ export default function MyFeeds() {
     })
     .then(response => response.json())
     .then(data => {
-      // Обновляем ленту после успешного отписывания
       setFeeds(feeds.filter(feed => feed.user.id !== userId));
     })
     .catch(error => {
