@@ -16,11 +16,11 @@ function App() {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
 
-    if (!authToken) {
-      const apiUrl = process.env.REACT_APP_API_URL;
-      window.location.href = `${apiUrl}/users/sign_in`;
+    // if (!authToken) {
+    //   const apiUrl = process.env.REACT_APP_API_URL;
+    //   window.location.href = `${apiUrl}/users/sign_in`;
 
-    }
+    // }
   }, []);
 
   return (
