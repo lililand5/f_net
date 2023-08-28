@@ -119,7 +119,6 @@ export default function Leftsidebar() {
               <div className="h6 text-muted">Subscriptions</div>
               <a href="/subscriptions" className="btn btn-primary mb-2">Subscriptions {subscriptions.length || ''}</a>
             </li>
-            <li className="list-group-item">Vestibulum at eros</li>
           </ul>
         </div>
       </div>

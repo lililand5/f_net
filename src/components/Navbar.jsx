@@ -30,7 +30,7 @@ export default function Navbar() {
     .then(response => {
       if (response.status === 200) {
         setIsAuthenticated(false);
-        localStorage.removeItem('authToken');  // Удаляем токен из localStorage
+        localStorage.removeItem('authToken');
       }
     })
     .catch(error => {
@@ -41,7 +41,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="navbar navbar-light bg-white">
-        <a href="/" className="navbar-brand">My network</a>
+      <Link to="/" className="navbar-brand logo-link">My Network</Link>
         <form className="form-inline">
           <div className="input-group mr-2">
             <input
