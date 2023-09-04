@@ -10,7 +10,8 @@ export default function Login({ setIsAuthenticated }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/users/sign_in", {
+      const apiBaseUrl = process.env.REACT_APP_API_URL;
+      const response = await axios.post(`${apiBaseUrl}/users/sign_in`, {
         user: {
           email,
           password,

@@ -15,18 +15,19 @@ export default function Leftsidebar() {
       'Authorization': `Bearer ${authToken}`
     };
 
+    const apiBaseUrl = process.env.REACT_APP_API_URL;
     // Запрос для получения профиля
-    fetch("http://localhost:3000/api/users/profile", { headers })
+    fetch(`${apiBaseUrl}/api/users/profile`, { headers })
       .then((response) => response.json())
       .then((data) => setProfile(data));
 
     // Запрос для получения списка подписчиков
-    fetch("http://localhost:3000/api/users/followers", { headers })
+    fetch(`${apiBaseUrl}/api/users/followers`, { headers })
       .then((response) => response.json())
       .then((data) => setFollowers(data.followers || []));
 
     // Запрос для получения списка подписок
-    fetch("http://localhost:3000/api/users/subscriptions", { headers })
+    fetch(`${apiBaseUrl}/api/users/subscriptions`, { headers })
       .then((response) => response.json())
       .then((data) => setSubscriptions(data.subscriptions || []));
   }, []);
@@ -35,13 +36,14 @@ export default function Leftsidebar() {
     // Удаление куки
     document.cookie = "auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
+    const apiBaseUrl = process.env.REACT_APP_API_URL;
     // Запрос на сервер для выхода из системы
-    fetch("http://localhost:3000/users/sign_out", {
+    fetch(`${apiBaseUrl}/users/sign_out`, {
       method: 'DELETE'
     }).then(response => {
       if (response.ok) {
         // Действия после успешного выхода, например, перенаправление на страницу входа
-        window.location.href = "/login"; 
+        window.location.href = "/login";
       }
     });
   };

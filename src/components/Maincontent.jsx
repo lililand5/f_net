@@ -4,11 +4,11 @@ import MyFeeds from "./MyFeeds";
 import FeedsGlobal from "./FeedsGlobal";
 
 export default function Maincontent() {
-  const [email, setEmail] = useState("");
   const [activeTab, setActiveTab] = useState(0);
   const [posts, setPosts] = useState([]);
   const [newPostContent, setNewPostContent] = useState("");
   const [newPostTitle, setNewPostTitle] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const authToken = localStorage.getItem('authToken');
@@ -21,14 +21,35 @@ export default function Maincontent() {
     };
 
     let endpoint;
-    if (activeTab === 1) {
+    if (activeTab === 0) {
       endpoint = `${process.env.REACT_APP_API_URL}/api/posts/my`;
+    } else if (activeTab === 1) {
+      endpoint = `${process.env.REACT_APP_API_URL}/api/posts/feed`;
     } else if (activeTab === 2) {
       endpoint = `${process.env.REACT_APP_API_URL}/api/posts/global_posts`;
     } else {
       return;
     }
 
+    fetch(endpoint, {
+      method: 'GET',
+      headers: headers,
+      credentials: 'include',
+    })
+    .then(response => response.json())  // Добавлен этот шаг
+    .then(data => {
+      if (activeTab === 1) {
+        setPosts(data.feed || []);
+      } else {
+        setPosts(data.my_posts || []);  // Убедитесь, что ключ 'my_posts' правильный
+      }
+    })
+    .catch(error => {
+      console.error('Ошибка при получении данных:', error);
+      setPosts([]);
+    });
+
+    // Запрос для получения email пользователя
     fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
       method: 'GET',
       headers: headers,
@@ -41,20 +62,6 @@ export default function Maincontent() {
     .catch(error => {
       console.error('Ошибка при получении данных:', error);
     });
-
-    fetch(endpoint, {
-      method: 'GET',
-      headers: headers,
-      credentials: 'include',
-    })
-      .then(response => response.json())
-      .then(data => {
-        setPosts(data.posts || []);
-      })
-      .catch(error => {
-        console.error('Ошибка при получении данных:', error);
-        setPosts([]);
-      });
   }, [activeTab]);
 
 
@@ -131,7 +138,7 @@ export default function Maincontent() {
             </ul>
           </div>
           <div className="card-body">
-            {activeTab === 0 && (
+          {activeTab === 0 && (
               <div className="tab-content" id="myTabContent">
                 <div
                   className="tab-pane fade show active"
@@ -177,8 +184,8 @@ export default function Maincontent() {
                 </div>
               </div>
             )}
-            {/* {activeTab === 1 && <MyFeeds />} */}
-            {/* {activeTab === 2 && <FeedsGlobal />} */}
+            {activeTab === 1 && <MyFeeds />}
+            {activeTab === 2 && <FeedsGlobal />}
           </div>
         </div>
       </div>
