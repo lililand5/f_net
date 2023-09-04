@@ -1,55 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Cookies from 'js-cookie';
+import React from "react";
 
-export default function Feed() {
-  const [posts, setPosts] = useState([]);
-  const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    const token = Cookies.get('auth_token');
-
-    if (token) {
-      localStorage.setItem('authToken', token);
-      Cookies.remove('auth_token');
-    }
-
-    const authToken = localStorage.getItem('authToken');
-
-    if (!authToken) {
-      return;
-    }
-
-    const headers = {
-      'Authorization': `Bearer ${authToken}`
-    };
-
-    const fetchData = async () => {
-      try {
-        const profileResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
-          method: 'GET',
-          headers: headers,
-          credentials: 'include',
-        });
-        const profileData = await profileResponse.json();
-        setEmail(profileData.email);
-
-        const postsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/posts/my`, {
-          method: 'GET',
-          headers: headers,
-          credentials: 'include',
-        });
-        const postsData = await postsResponse.json();
-        setPosts(postsData.my_posts);
-
-      } catch (error) {
-        console.error("Ошибка при получении данных:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-
+export default function Feed({ posts, email }) { // Принимаем posts и email как пропы
   return (
     <>
       {posts.map(post => (
@@ -72,7 +23,6 @@ export default function Feed() {
             </a>
             <p className="card-text">{post.content}</p>
           </div>
-
         </div>
       ))}
     </>

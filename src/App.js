@@ -1,68 +1,74 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useNavigate,
-  useLocation,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
 import Maincontent from "./components/Maincontent";
 import Leftsidebar from "./components/Leftsidebar";
 import Rightsidebar from "./components/Rightsidebar";
 import Subscriptions from "./components/Subscriptions";
 import Followers from "./components/Followers";
+import "./styles.css";
 
-function AppContent() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    const authTokenFromLocalStorage = localStorage.getItem("authToken");
-
-    if (!authTokenFromLocalStorage) {
-      const authTokenFromUrl = new URLSearchParams(location.search).get("token");
-
-      if (authTokenFromUrl) {
-        localStorage.setItem("authToken", authTokenFromUrl);
-        navigate("/", { replace: true }); // перенаправить на главную страницу
-      } else {
-        const apiUrl = process.env.REACT_APP_API_URL;
-        window.location.href = `${apiUrl}/users/sign_in`;
-      }
-    }
-  }, [navigate, location.search]);
-
-  return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<MainLayout />} />
-        <Route path="/subscriptions" element={<Subscriptions />} />
-        <Route path="/followers" element={<Followers />} />
-      </Routes>
-    </>
-  );
-}
-
-function MainLayout() {
+function MainLayout({ isAuthenticated }) {
   return (
     <div className="container-fluid gedf-wrapper">
       <div className="row">
         <Leftsidebar />
-        <Maincontent />
+        {isAuthenticated ? <Maincontent /> : null}
         <Rightsidebar />
       </div>
     </div>
   );
 }
 
-function App() {
+function AppContent() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const authTokenCookie = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("auth_token="));
+
+    if (authTokenCookie) {
+      setIsAuthenticated(true);
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  return (
+    <>
+      <Navbar />
+      <div className="container-fluid gedf-wrapper">
+        <div className="row">
+          <Routes>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+            <Route path="/subscriptions" element={<Subscriptions />} />
+            <Route path="/followers" element={<Followers />} />
+            {/* {isAuthenticated && <Route path="/" element={<MainLayout />} />} */}
+            {/* {isAuthenticated && <Route path="/" element={<MainLayout isAuthenticated={isAuthenticated} />} />} */}
+            {isAuthenticated && <Route path="/" element={<MainLayout isAuthenticated={isAuthenticated} />} />}
+
+
+          </Routes>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default function App() {
   return (
     <Router>
       <AppContent />
     </Router>
   );
 }
-
-export default App;

@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Cookies from 'js-cookie';
 import Feed from "./Feed";
 import MyFeeds from "./MyFeeds";
 import FeedsGlobal from "./FeedsGlobal";
 
 export default function Maincontent() {
+  const [email, setEmail] = useState("");
   const [activeTab, setActiveTab] = useState(0);
   const [posts, setPosts] = useState([]);
   const [newPostContent, setNewPostContent] = useState("");
   const [newPostTitle, setNewPostTitle] = useState("");
 
   useEffect(() => {
-    const token = Cookies.get('auth_token');
-
-    if (token) {
-      localStorage.setItem('authToken', token);
-      Cookies.remove('auth_token');
-    }
-
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
       return;
@@ -36,6 +29,19 @@ export default function Maincontent() {
       return;
     }
 
+    fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
+      method: 'GET',
+      headers: headers,
+      credentials: 'include',
+    })
+    .then(response => response.json())
+    .then(data => {
+      setEmail(data.email || "");
+    })
+    .catch(error => {
+      console.error('Ошибка при получении данных:', error);
+    });
+
     fetch(endpoint, {
       method: 'GET',
       headers: headers,
@@ -50,6 +56,7 @@ export default function Maincontent() {
         setPosts([]);
       });
   }, [activeTab]);
+
 
   const handlePostCreation = () => {
     const authToken = localStorage.getItem('authToken');
@@ -90,7 +97,6 @@ export default function Maincontent() {
         console.error('Ошибка при создании публикации:', error);
     });
   };
-
 
   return (
     <>
@@ -167,12 +173,12 @@ export default function Maincontent() {
                     </div>
                   </div>
                   <hr />
-                  <Feed posts={posts} />
+                  <Feed posts={posts} email={email} />
                 </div>
               </div>
             )}
-            {activeTab === 1 && <MyFeeds />}
-            {activeTab === 2 && <FeedsGlobal />}
+            {/* {activeTab === 1 && <MyFeeds />} */}
+            {/* {activeTab === 2 && <FeedsGlobal />} */}
           </div>
         </div>
       </div>
