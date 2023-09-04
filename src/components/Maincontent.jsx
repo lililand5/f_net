@@ -36,12 +36,12 @@ export default function Maincontent() {
       headers: headers,
       credentials: 'include',
     })
-    .then(response => response.json())  // Добавлен этот шаг
+    .then(response => response.json())
     .then(data => {
       if (activeTab === 1) {
         setPosts(data.feed || []);
       } else {
-        setPosts(data.my_posts || []);  // Убедитесь, что ключ 'my_posts' правильный
+        setPosts(data.my_posts || []);
       }
     })
     .catch(error => {
