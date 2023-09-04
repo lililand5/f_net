@@ -6,8 +6,8 @@ import {
   useNavigate,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import SignUp from "./components/SignUp";
 import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 import Maincontent from "./components/Maincontent";
 import Leftsidebar from "./components/Leftsidebar";
 import Rightsidebar from "./components/Rightsidebar";
@@ -49,15 +49,10 @@ function AppContent() {
       <div className="container-fluid gedf-wrapper">
         <div className="row">
           <Routes>
-            <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
             <Route path="/subscriptions" element={<Subscriptions />} />
             <Route path="/followers" element={<Followers />} />
-            {/* {isAuthenticated && <Route path="/" element={<MainLayout />} />} */}
-            {/* {isAuthenticated && <Route path="/" element={<MainLayout isAuthenticated={isAuthenticated} />} />} */}
             {isAuthenticated && <Route path="/" element={<MainLayout isAuthenticated={isAuthenticated} />} />}
-
-
           </Routes>
         </div>
       </div>
