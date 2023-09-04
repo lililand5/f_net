@@ -66,7 +66,7 @@ export default function Leftsidebar() {
           </div>
           <button onClick={handleSignOut} className="btn btn-danger mb-2">Sign Out</button>
         </div>
-        <ul className="list-group list-group-flush">
+        {/* <ul className="list-group list-group-flush">
           <li className="list-group-item">
             <div className="h6 text-muted">Followers</div>
             <a href="/followers" className="btn btn-primary mb-2">Followers {followers.length || ''}</a>
@@ -75,7 +75,7 @@ export default function Leftsidebar() {
             <div className="h6 text-muted">Subscriptions</div>
             <a href="/subscriptions" className="btn btn-primary mb-2">Subscriptions {subscriptions.length || ''}</a>
           </li>
-        </ul>
+        </ul> */}
       </div>
     </div>
   );

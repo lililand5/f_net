@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
-import SignUp from "./components/SignUp";
 import Maincontent from "./components/Maincontent";
 import Leftsidebar from "./components/Leftsidebar";
 import Rightsidebar from "./components/Rightsidebar";
